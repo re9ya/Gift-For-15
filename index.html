@@ -9,26 +9,30 @@
 <body>
     <div id="scene-muffin" class="scene">
         <img id="muffin-img" src="assets/imgs/blueberry-muffin.png" alt="blueberry-muffin">
-        <p>Do you like blueberry muffins?</p>
+        <p id="muffin-question">Do you like blueberry muffins?
+            (There's only one right answer)
+        </p>
         <button id="yes-btn">Yes</button>
         <button id="no-btn">No</button>
     </div>
 
     <div id="scene-cake" class="scene" style="display:none">
-        <img id="cake-img" src="assets/imgs/blueberry-cake.png" alt="fruit-cake">
-        <p>Here's your cake! Hope you like fruit (without the blueberries)</p>
+        <img id="cake-img" src="assets/imgs/cake.png" alt="fruit-cake">
+        <p id="cake-intro">Here's your cake! Hope you like fruit (without the blueberries)</p>
 
-        <p>If not, then it's YOUR fault today!
+        <p id="cake-joke">If not, then it's YOUR fault today!
 
         just kidding, I hope you like it!</p>
 
-        <p>Time to blow out the candles! Click on each candle flame to blow it out</p>
+        <p id="cake-directions">Time to blow out the candles! Click on each candle flame to blow it out!</p>
     </div>
 
     <div id="scene-slideshow" class ="scene" style="display:none">
+        <p id="slideshow-intro">A little bit of 15 years</p>
     </div>
 
     <div id="scene-letters" class ="scene" style="display:none">
+        <p id="letter-directions">And finally, a letter from each student and mentor to you!</p>
     </div>
 
     <script src="script.js"></script>
