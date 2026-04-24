@@ -11,8 +11,20 @@ function fadeToScene(fromId, toId) {
 
         requestAnimationFrame(function() {
             toScene.classList.remove('fade-out');
+
+            if (toId === 'scene-cake') {
+                const cakeDirections = document.getElementById('cake-directions');
+                cakeDirections.classList.remove('fade-in');
+                cakeDirections.classList.remove('pulse');
+                setTimeout(function() {
+                    cakeDirections.classList.add('fade-in');
+                    setTimeout(function() {
+                        cakeDirections.classList.add('pulse');
+                    }, 600);
+                }, 6000);
+            }
         });
-    }, 1000);
+    }, 3500);
 }
 
 let noCount = 0;
