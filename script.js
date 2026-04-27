@@ -21,6 +21,10 @@ function fadeToScene(fromId, toId) {
                     cakeDirections.classList.add('fade-in');
                     setTimeout(function() {
                         cakeDirections.classList.add('pulse');
+
+                        setTimeout(function() {
+                            dropCandles();
+                        }, 1500);
                     }, 600);
                 }, 6000);
             }
@@ -106,3 +110,40 @@ document.getElementById('yes-btn').addEventListener('click', function() {
         }, 2000);
     }
 });
+
+let candlesBlownOut = 0;
+const totalCandles = 3;
+
+function dropCandles() {
+    const container = document.getElementById('candle-container');
+    container.innerHTML = '';
+    candlesBlownOut = 0;
+
+    for (let i = 0; i < totalCandles; i++) {
+        const candle = document.createElement('img');
+        candle.src = 'assets/imgs/candlewax.png';
+        candle.classList.add('candle');
+
+        candle.style.animationDelay = (i * 0.3) + 's';
+
+        setTimeout(function() {
+            candle.classList.add('landed');
+        }, (i * 0.3 + 0.4) * 1000);
+
+        candle.addEventListener('click', function() {
+            if (!candle.classList.contains('blown-out')) {
+                candle.classList.add('blown-out');
+                candlesBlownOut++;
+                console.log('Candles blown out: ' + candlesBlownOut);
+
+                if (candlesBlownOut === totalCandles) {
+                    setTimeout(function() {
+                        fadeToScene('scene-cake', 'scene-slideshow');
+                    }, 1500);
+                }
+            }
+        });
+
+        container.appendChild(candle);
+    }
+}
