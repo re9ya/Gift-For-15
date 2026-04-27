@@ -7,15 +7,16 @@ function fadeToScene(fromId, toId) {
     setTimeout(function() {
         fromScene.style.display = 'none';
         toScene.style.display = 'flex';
-        toScene.classList.add('fade-out');
+        toScene.style.opacity = 0;
 
-        requestAnimationFrame(function() {
-            toScene.classList.remove('fade-out');
+        setTimeout(function() {
+            toScene.style.opacity = 1;
 
             if (toId === 'scene-cake') {
                 const cakeDirections = document.getElementById('cake-directions');
                 cakeDirections.classList.remove('fade-in');
                 cakeDirections.classList.remove('pulse');
+                
                 setTimeout(function() {
                     cakeDirections.classList.add('fade-in');
                     setTimeout(function() {
@@ -23,8 +24,8 @@ function fadeToScene(fromId, toId) {
                     }, 600);
                 }, 6000);
             }
-        });
-    }, 3500);
+        }, 50);
+    }, 1000);
 }
 
 let noCount = 0;
