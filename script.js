@@ -28,20 +28,46 @@ function fadeToScene(fromId, toId) {
                     }, 600);
                 }, 6000);
             }
-        }, 50);
+
+            if (toId === 'scene-slideshow') {
+                const slideshowIntro = document.getElementById('slideshow-intro');
+                slideshowIntro.classList.remove('fade-in');
+
+                setTimeout(function() {
+                    slideshowIntro.classList.add('fade-in');
+                }, 500);
+            }
+        }, 2000);
     }, 1000);
 }
 
 let noCount = 0;
 let yesCount = 0;
+let choiceLocked = false;
+const yesBtn = document.getElementById('yes-btn');
+const noBtn = document.getElementById('no-btn');
+
+function lockChoices() {
+    choiceLocked = true;
+    yesBtn.disabled = true;
+    noBtn.disabled = true;
+}
+
+function unlockChoices() {
+    choiceLocked = false;
+    yesBtn.disabled = false;
+    noBtn.disabled = false;
+}
 
 document.getElementById('no-btn').addEventListener('click', function() {
+    if (choiceLocked) return;
     console.log('No button clicked');
 
     if (noCount === 0) {
         document.getElementById('muffin-question').textContent = "So you don't like blueberries?"
         noCount++;
     } else if (noCount === 1){
+        lockChoices();
         document.getElementById('muffin-question').textContent = "Okay then, You must not be Paul then...Redirecting you..."
 
         setTimeout(function() {
@@ -53,6 +79,7 @@ document.getElementById('no-btn').addEventListener('click', function() {
                 document.getElementById('muffin-question').textContent = "Do you like blueberry muffins?"
 
                 document.getElementById('scene-muffin').classList.remove('fade-out');
+                unlockChoices();
             }, 1000);
         }, 2000);
     }
@@ -60,10 +87,12 @@ document.getElementById('no-btn').addEventListener('click', function() {
 
 
 document.getElementById('yes-btn').addEventListener('click', function() {
+    if (choiceLocked) return;
     yesCount++;
     console.log('Yes button clicked ');
 
     if (noCount === 1) {
+        lockChoices();
         document.getElementById('muffin-question').textContent = "Alright Paul, redirecting you..."
         setTimeout(function() {
             fadeToScene('scene-muffin', 'scene-cake');
@@ -87,6 +116,7 @@ document.getElementById('yes-btn').addEventListener('click', function() {
         console.log('Yes button was 5 times!');
         document.getElementById('muffin-question').textContent = "Is this even Paul?"
     } else if (yesCount > 5) {
+        lockChoices();
         console.log('Yes button was clicked more than 5 times!');
 
         document.getElementById('yes-btn').style.display = 'none';
@@ -106,6 +136,7 @@ document.getElementById('yes-btn').addEventListener('click', function() {
 
                  document.getElementById('yes-btn').style.display = 'block';
                 document.getElementById('no-btn').style.display = 'block';
+                unlockChoices();
             }, 1000);
         }, 2000);
     }

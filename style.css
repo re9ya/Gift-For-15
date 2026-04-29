@@ -108,6 +108,7 @@ p {
     transition: opacity 0.5s ease-in-out;
 }
 
+
 #cake-directions.pulse {
     animation: pulse 1.5s ease-in-out infinite;
 }
@@ -182,4 +183,21 @@ p {
         transform: translateY(-30px);
         opacity: 1;
     }
+}
+
+#slideshow-intro {
+    max-width: 80vw;
+    white-space: normal;
+    text-align: center;
+    font-size: 20px;
+    margin-top: 0px;
+    padding: 0;
+    color: white;
+
+    opacity: 0;
+}
+
+#slideshow-intro.fade-in {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
 }
