@@ -120,19 +120,21 @@ function dropCandles() {
     candlesBlownOut = 0;
 
     for (let i = 0; i < totalCandles; i++) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('candle-wrapper');
+        wrapper.style.animationDelay = (i * 0.3) + 's';
+
         const candle = document.createElement('img');
-        candle.src = 'assets/imgs/candlewax.png';
+        candle.src = 'assets/imgs/candle.png';
         candle.classList.add('candle');
 
-        candle.style.animationDelay = (i * 0.3) + 's';
+        const flame = document.createElement('img');
+        flame.src = 'assets/imgs/flame.png';
+        flame.classList.add('flame');
 
-        setTimeout(function() {
-            candle.classList.add('landed');
-        }, (i * 0.3 + 0.4) * 1000);
-
-        candle.addEventListener('click', function() {
-            if (!candle.classList.contains('blown-out')) {
-                candle.classList.add('blown-out');
+        function blowOut() {
+            if (!flame.classList.contains('blown-out')) {
+                flame.classList.add('blown-out');
                 candlesBlownOut++;
                 console.log('Candles blown out: ' + candlesBlownOut);
 
@@ -142,8 +144,12 @@ function dropCandles() {
                     }, 1500);
                 }
             }
-        });
+        }
 
-        container.appendChild(candle);
+        candle.addEventListener('click', blowOut);
+        flame.addEventListener('click', blowOut);
+        wrapper.appendChild(flame);
+        wrapper.appendChild(candle);
+        container.appendChild(wrapper);
     }
 }
