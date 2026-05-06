@@ -51,6 +51,7 @@ function fadeToScene(fromId, toId) {
 
 let noCount = 0;
 let yesCount = 0;
+let nextCount = 0;
 let choiceLocked = false;
 const yesBtn = document.getElementById('yes-btn');
 const noBtn = document.getElementById('no-btn');
@@ -217,8 +218,8 @@ function startSlideshow(){
             setTimeout(function(){
                 current++;
                 showNext();
-            }, 800);
-        }, 3000);
+            }, 1000);
+        }, 5000);
     }
     showNext();
 }

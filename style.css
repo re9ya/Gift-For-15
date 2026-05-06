@@ -55,7 +55,7 @@ body {
     transition: all 0.1s;
 }
 
-#yes-btn:hover, #no-btn:hover {
+#yes-btn:hover, #no-btn:hover, #next-btn:hover{
     background: white;
     color: black;
     box-shadow: none;
@@ -288,3 +288,19 @@ p {
     transform: rotate(-3deg) scale(1.5);
 }
 
+#next-btn {
+    display: block;
+    width: 400px;
+    height: 60px;
+    margin: 20px auto 0;
+    padding-left: 20px;
+    font-size: 30px;
+    font-family: "Press Start 2P", system-ui;
+
+    cursor: pointer;
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    box-shadow: 4px 4px 0px white;
+    transition: all 0.1s;
+}
