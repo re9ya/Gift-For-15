@@ -55,18 +55,21 @@ let nextCount = 0;
 let choiceLocked = false;
 const yesBtn = document.getElementById('yes-btn');
 const noBtn = document.getElementById('no-btn');
+const nextBtn = document.getElementById('next-btn');
 
 
 function lockChoices() {
     choiceLocked = true;
     yesBtn.disabled = true;
     noBtn.disabled = true;
+    nextBtn.disabled = true;
 }
 
 function unlockChoices() {
     choiceLocked = false;
     yesBtn.disabled = false;
     noBtn.disabled = false;
+    nextBtn.disabled = false;
 }
 
 document.getElementById('no-btn').addEventListener('click', function() {
@@ -148,6 +151,22 @@ document.getElementById('yes-btn').addEventListener('click', function() {
                 document.getElementById('no-btn').style.display = 'block';
                 unlockChoices();
             }, 1000);
+        }, 2000);
+    }
+});
+
+document.getElementById('next-btn').addEventListener('click', function(){
+    console.log('Next button clicked');
+
+    if (nextCount === 0){
+        nextCount++;
+        document.getElementById('finale').textContent = "Don't worry, you can access these letters again!";
+    } else if (nextCount === 1){
+        lockChoices();
+        document.getElementById('finale').textContent = "Don't worry, you can access these letters again!";
+        
+        setTimeout(function() {
+            fadeToScene('scene-letters', 'scene-final');
         }, 2000);
     }
 });
