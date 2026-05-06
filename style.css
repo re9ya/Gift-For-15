@@ -192,6 +192,7 @@ p {
     font-size: 20px;
     margin-top: 0px;
     padding: 0;
+    z-index: 100;
     color: white;
 
     opacity: 0;
@@ -200,4 +201,31 @@ p {
 #slideshow-intro.fade-in {
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
+}
+
+#slideshow-container {
+    position: relative;
+    width: 80vw;
+    height: 60vh;
+    overflow: hidden;
+}
+
+.ftcimg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateX(100vw);
+    width: 80%;
+    height: auto;
+    max-height: 60vh;
+    object-fit: contain;
+    transition: transform 0.8s ease-in-out;
+}
+
+.ftcimg.slide-in {
+    transform: translate(-50%, -50%) translateX(0);
+}
+
+.ftcimg.slide-out {
+    transform: translate(-50%, -50%) translateX(-100vw);
 }

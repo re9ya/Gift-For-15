@@ -33,10 +33,15 @@ function fadeToScene(fromId, toId) {
                 const slideshowIntro = document.getElementById('slideshow-intro');
                 slideshowIntro.classList.remove('fade-in');
 
-                setTimeout(function() {
+                setTimeout(function(){
                     slideshowIntro.classList.add('fade-in');
+
+                    setTimeout(function(){
+                        startSlideshow();
+                    }, 2000);
                 }, 500);
             }
+            
         }, 2000);
     }, 1000);
 }
@@ -183,4 +188,33 @@ function dropCandles() {
         wrapper.appendChild(candle);
         container.appendChild(wrapper);
     }
+}
+
+function startSlideshow(){
+    const images = document.querySelectorAll('.ftcimg');
+    let current = 0;
+
+    function showNext(){
+        if (current >= images.length){
+            setTimeout(function(){
+                fadeToScene('scene-slideshow', 'scene-letters');
+            }, 500);
+            return;
+        }
+
+        const img = images[current];
+
+        img.classList.add('slide-in');
+
+        setTimeout(function(){
+            img.classList.remove('slide-in');
+            img.classList.add('slide-out');
+
+            setTimeout(function(){
+                current++;
+                showNext();
+            }, 800);
+        }, 3000);
+    }
+    showNext();
 }
