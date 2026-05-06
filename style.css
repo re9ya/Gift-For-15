@@ -5,6 +5,7 @@ body {
     line-height: 1.5;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 .scene{
@@ -203,11 +204,15 @@ p {
     transition: opacity 0.5s ease-in-out;
 }
 
-#slideshow-container {
-    position: relative;
-    width: 80vw;
-    height: 60vh;
-    overflow: hidden;
+#scene-letters {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 60px 20px;
+    box-sizing: border-box;
+    width: 100vw;
 }
 
 .ftcimg {
@@ -229,3 +234,57 @@ p {
 .ftcimg.slide-out {
     transform: translate(-50%, -50%) translateX(-100vw);
 }
+
+#letters-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.letter-name {
+    font-family: "Press Start 2P", system-ui;
+    font-size: 10px;
+    color: rgb(34, 16, 3);
+    margin: 0 0 20px 0;
+    text-align: left;
+    display: block;
+}
+
+.letter-text {
+    font-family: "Press Start 2P", system-ui;
+    font-size: 7px;
+    color: rgb(34, 16, 3);
+    line-height: 2;
+    white-space: normal;
+    word-break: break-word;
+    text-align: left;
+    display: block;
+    padding-top: 1px;
+}
+
+.letter-card{
+    background-image: url('assets/imgs/letter.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+
+    width: min(600px, 85vw);
+    min-height: 400px;
+    height: auto;
+
+    padding: 120px;
+    box-sizing: border-box;
+
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.letter-card:hover {
+    transform: rotate(-3deg) scale(1.5);
+}
+
