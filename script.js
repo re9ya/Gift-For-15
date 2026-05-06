@@ -2,11 +2,13 @@ function fadeToScene(fromId, toId) {
     const fromScene = document.getElementById(fromId);
     const toScene = document.getElementById(toId);
 
-    fromScene.classList.add('fade-out');
+    fromScene.style.opacity = 0;
 
     setTimeout(function() {
         fromScene.style.display = 'none';
-        toScene.style.display = 'flex';
+        toScene.style.opacity = 1;
+
+        toScene.style.display = (toId === 'scene-letters') ? 'block' : 'flex';
         toScene.style.opacity = 0;
 
         setTimeout(function() {
@@ -21,7 +23,6 @@ function fadeToScene(fromId, toId) {
                     cakeDirections.classList.add('fade-in');
                     setTimeout(function() {
                         cakeDirections.classList.add('pulse');
-
                         setTimeout(function() {
                             dropCandles();
                         }, 1500);
@@ -35,15 +36,17 @@ function fadeToScene(fromId, toId) {
 
                 setTimeout(function(){
                     slideshowIntro.classList.add('fade-in');
-
                     setTimeout(function(){
                         startSlideshow();
-                    }, 2000);
-                }, 500);
+                    }, 3000);
+                }, 6000);
             }
-            
-        }, 2000);
-    }, 1000);
+
+            if (toId === 'scene-letters') {
+                document.getElementById('scene-letters').scrollTop = 0;
+            }
+        }, 50);
+    }, 3000);
 }
 
 let noCount = 0;
@@ -51,6 +54,7 @@ let yesCount = 0;
 let choiceLocked = false;
 const yesBtn = document.getElementById('yes-btn');
 const noBtn = document.getElementById('no-btn');
+
 
 function lockChoices() {
     choiceLocked = true;
