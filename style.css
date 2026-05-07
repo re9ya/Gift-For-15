@@ -167,7 +167,12 @@ p {
     z-index: 2;
 
     cursor: pointer;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.flame:hover {
+    transform: translateY(-30px) scale(1.7);
+    box-shadow: none;
 }
 
 .flame.blown-out {

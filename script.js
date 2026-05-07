@@ -300,9 +300,9 @@ document.getElementById('home-btn').addEventListener('click', function(){
         document.getElementById(id).style.opacity = 0;
     });
 
-    document.getElementById('home-btn').classList.remove('visible');
-
     document.getElementById('muffin-question').textContent = "Do you like blueberry muffins? (There's only one right answer)";
 
     fadeToScene('scene-final', 'scene-muffin');
+    
+    unlockChoices();
 });
