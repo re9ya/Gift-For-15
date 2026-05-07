@@ -38,12 +38,59 @@ function fadeToScene(fromId, toId) {
                     slideshowIntro.classList.add('fade-in');
                     setTimeout(function(){
                         startSlideshow();
-                    }, 3000);
-                }, 6000);
+                    }, 2000);
+                }, 3000);
             }
 
             if (toId === 'scene-letters') {
                 document.getElementById('scene-letters').scrollTop = 0;
+                unlockChoices();
+            }
+
+            if (toId === 'scene-final') {
+                const lines = [
+                document.getElementById('final-greet'),
+                document.getElementById('final-intro'),
+                document.getElementById('final-body1'),
+                document.getElementById('final-body2'),
+                document.getElementById('final-body3'),
+                document.getElementById('final-body4'),
+                document.getElementById('final-conclusion')
+                ];
+
+                const durations = [
+                    1500,
+                    4000,
+                    2500,
+                    2500,
+                    5000,
+                    5000,
+                    4000,
+                ];
+
+                let delay = 500;
+
+                lines.forEach(function(line, index){
+                    setTimeout(function(){
+                        line.style.opacity = 1;
+                    }, delay);
+
+                    delay += durations[index];
+
+                    if (index < lines.length - 1){
+                        setTimeout(function(){
+                            line.style.opacity = 0;
+                        }, delay);
+
+                        delay += 1500;
+                    }
+                });
+
+                const totalTime = delay + 2000;
+
+                setTimeout(function(){
+                    document.getElementById('home-btn').classList.add('visible');
+                }, totalTime);
             }
         }, 50);
     }, 3000);
@@ -56,7 +103,6 @@ let choiceLocked = false;
 const yesBtn = document.getElementById('yes-btn');
 const noBtn = document.getElementById('no-btn');
 const nextBtn = document.getElementById('next-btn');
-
 
 function lockChoices() {
     choiceLocked = true;
@@ -242,3 +288,21 @@ function startSlideshow(){
     }
     showNext();
 }
+
+document.getElementById('home-btn').addEventListener('click', function(){
+    noCount = 0;
+    yesCount = 0;
+    nextCount = 0;
+
+    const lines = ['final-greet', 'final-intro', 'final-body1', 'final-body2', 'final-body3', 'final-body4', 'final-conclusion'];
+
+    lines.forEach(function(id){
+        document.getElementById(id).style.opacity = 0;
+    });
+
+    document.getElementById('home-btn').classList.remove('visible');
+
+    document.getElementById('muffin-question').textContent = "Do you like blueberry muffins? (There's only one right answer)";
+
+    fadeToScene('scene-final', 'scene-muffin');
+});

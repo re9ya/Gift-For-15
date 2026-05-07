@@ -304,3 +304,54 @@ p {
     box-shadow: 4px 4px 0px white;
     transition: all 0.1s;
 }
+
+#final-container p{
+    position: absolute;
+    text-align: center;
+    max-width: 70vw;
+    opacity: 0;
+    font-size: 20px;
+    color: white;
+    line-height: 2;
+    transition: opacity 1.5s ease-in-out;
+}
+
+#final-greet{
+    font-size: 40px;
+}
+
+#final-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#home-btn {
+    position: absolute;
+    bottom: 40px;         
+    left: 50%;
+    transform: translateX(-50%);  
+    width: 400px;
+    height: 60px;
+    font-size: 16px;
+    font-family: "Press Start 2P", system-ui;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px white;
+    transition: all 0.1s;
+    opacity: 0;
+}
+
+#home-btn.visible {
+    opacity: 1;
+    transition: opacity 1.5s ease-in-out;
+}
+
+#home-btn:hover {
+    background: white;
+    color: black;
+    box-shadow: none;
+    transform: translateX(-50%) translate(4px, 4px); 
+}
