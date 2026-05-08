@@ -345,13 +345,14 @@ p {
     font-family: "Press Start 2P", system-ui;
     cursor: pointer;
     box-shadow: 4px 4px 0px white;
-    transition: all 0.1s;
     opacity: 0;
+
+    transition: opacity 1.5s ease-in-out, background 0.1s, color 0.1s, box-shadow 0.1s, transform 0.1s;
+
 }
 
 #home-btn.visible {
     opacity: 1;
-    transition: opacity 1.5s ease-in-out;
 }
 
 #home-btn:hover {

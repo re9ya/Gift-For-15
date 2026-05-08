@@ -1,17 +1,33 @@
+
+let activeTimers = [];
+
+function safeTimeout(fn, delay) {
+    const id = setTimeout(fn, delay);
+    activeTimers.push(id);
+    return id;
+}
+
+function clearAllTimers() {
+    activeTimers.forEach(function(id) {
+        clearTimeout(id);
+    });
+    activeTimers = [];
+}
+
 function fadeToScene(fromId, toId) {
     const fromScene = document.getElementById(fromId);
     const toScene = document.getElementById(toId);
 
     fromScene.style.opacity = 0;
 
-    setTimeout(function() {
+    safeTimeout(function() {
         fromScene.style.display = 'none';
-        toScene.style.opacity = 1;
+        fromScene.style.opacity = 1;
 
         toScene.style.display = (toId === 'scene-letters') ? 'block' : 'flex';
         toScene.style.opacity = 0;
 
-        setTimeout(function() {
+        safeTimeout(function() {
             toScene.style.opacity = 1;
 
             if (toId === 'scene-cake') {
@@ -19,11 +35,11 @@ function fadeToScene(fromId, toId) {
                 cakeDirections.classList.remove('fade-in');
                 cakeDirections.classList.remove('pulse');
                 
-                setTimeout(function() {
+                safeTimeout(function() {
                     cakeDirections.classList.add('fade-in');
-                    setTimeout(function() {
+                    safeTimeout(function() {
                         cakeDirections.classList.add('pulse');
-                        setTimeout(function() {
+                        safeTimeout(function() {
                             dropCandles();
                         }, 1500);
                     }, 600);
@@ -34,9 +50,9 @@ function fadeToScene(fromId, toId) {
                 const slideshowIntro = document.getElementById('slideshow-intro');
                 slideshowIntro.classList.remove('fade-in');
 
-                setTimeout(function(){
+                safeTimeout(function(){
                     slideshowIntro.classList.add('fade-in');
-                    setTimeout(function(){
+                    safeTimeout(function(){
                         startSlideshow();
                     }, 2000);
                 }, 3000);
@@ -71,14 +87,14 @@ function fadeToScene(fromId, toId) {
                 let delay = 500;
 
                 lines.forEach(function(line, index){
-                    setTimeout(function(){
+                    safeTimeout(function(){
                         line.style.opacity = 1;
                     }, delay);
 
                     delay += durations[index];
 
                     if (index < lines.length - 1){
-                        setTimeout(function(){
+                        safeTimeout(function(){
                             line.style.opacity = 0;
                         }, delay);
 
@@ -88,7 +104,7 @@ function fadeToScene(fromId, toId) {
 
                 const totalTime = delay + 2000;
 
-                setTimeout(function(){
+                safeTimeout(function(){
                     document.getElementById('home-btn').classList.add('visible');
                 }, totalTime);
             }
@@ -129,10 +145,10 @@ document.getElementById('no-btn').addEventListener('click', function() {
         lockChoices();
         document.getElementById('muffin-question').textContent = "Okay then, You must not be Paul then...Redirecting you..."
 
-        setTimeout(function() {
+        safeTimeout(function() {
             document.getElementById('scene-muffin').classList.add('fade-out');
             
-            setTimeout(function() {
+            safeTimeout(function() {
                 noCount = 0;
                 yesCount = 0;
                 document.getElementById('muffin-question').textContent = "Do you like blueberry muffins?"
@@ -153,7 +169,7 @@ document.getElementById('yes-btn').addEventListener('click', function() {
     if (noCount === 1) {
         lockChoices();
         document.getElementById('muffin-question').textContent = "Alright Paul, redirecting you..."
-        setTimeout(function() {
+        safeTimeout(function() {
             fadeToScene('scene-muffin', 'scene-cake');
         }, 2000);
         return;
@@ -183,10 +199,10 @@ document.getElementById('yes-btn').addEventListener('click', function() {
 
         document.getElementById('muffin-question').textContent = "Ummm...sure...Redirecting you..."
 
-        setTimeout(function() {
+        safeTimeout(function() {
             document.getElementById('scene-muffin').classList.add('fade-out');
             
-            setTimeout(function() {
+            safeTimeout(function() {
                 noCount = 0;
                 yesCount = 0;
                 document.getElementById('muffin-question').textContent = "Do you like blueberry muffins?"
@@ -211,7 +227,7 @@ document.getElementById('next-btn').addEventListener('click', function(){
         lockChoices();
         document.getElementById('finale').textContent = "Don't worry, you can access these letters again!";
         
-        setTimeout(function() {
+        safeTimeout(function() {
             fadeToScene('scene-letters', 'scene-final');
         }, 2000);
     }
@@ -245,7 +261,7 @@ function dropCandles() {
                 console.log('Candles blown out: ' + candlesBlownOut);
 
                 if (candlesBlownOut === totalCandles) {
-                    setTimeout(function() {
+                    safeTimeout(function() {
                         fadeToScene('scene-cake', 'scene-slideshow');
                     }, 1500);
                 }
@@ -266,7 +282,7 @@ function startSlideshow(){
 
     function showNext(){
         if (current >= images.length){
-            setTimeout(function(){
+            safeTimeout(function(){
                 fadeToScene('scene-slideshow', 'scene-letters');
             }, 500);
             return;
@@ -276,11 +292,11 @@ function startSlideshow(){
 
         img.classList.add('slide-in');
 
-        setTimeout(function(){
+        safeTimeout(function(){
             img.classList.remove('slide-in');
             img.classList.add('slide-out');
 
-            setTimeout(function(){
+            safeTimeout(function(){
                 current++;
                 showNext();
             }, 1000);
@@ -290,19 +306,41 @@ function startSlideshow(){
 }
 
 document.getElementById('home-btn').addEventListener('click', function(){
+    clearAllTimers();
+
     noCount = 0;
     yesCount = 0;
     nextCount = 0;
+    candlesBlownOut = 0;
+
+    document.getElementById('candle-container').innerHTML = '';
+
+    const cakeDirections = document.getElementById('cake-directions');
+    cakeDirections.classList.remove('fade-in');
+    cakeDirections.classList.remove('pulse');
+    cakeDirections.style.opacity = 0;
+
+    cakeDirections.classList.remove('fade-in');
+    cakeDirections.classList.remove('pulse');
+    cakeDirections.style.opacity = '';
+
+    document.querySelectorAll('.ftcimg').forEach(function(img){
+        img.classList.remove('slide-in');
+        img.classList.remove('slide-out');
+    });
+
+    document.getElementById('slideshow-intro').classList.remove('fade-in');
+    document.getElementById('slideshow-intro').style.opacity = '';
 
     const lines = ['final-greet', 'final-intro', 'final-body1', 'final-body2', 'final-body3', 'final-body4', 'final-conclusion'];
-
     lines.forEach(function(id){
         document.getElementById(id).style.opacity = 0;
     });
 
+    document.getElementById('home-btn').classList.remove('visible');
+
     document.getElementById('muffin-question').textContent = "Do you like blueberry muffins? (There's only one right answer)";
 
-    fadeToScene('scene-final', 'scene-muffin');
-    
     unlockChoices();
+    fadeToScene('scene-final', 'scene-muffin');
 });
