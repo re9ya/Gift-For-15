@@ -139,7 +139,7 @@ document.getElementById('no-btn').addEventListener('click', function() {
     console.log('No button clicked');
 
     if (noCount === 0) {
-        document.getElementById('muffin-question').textContent = "So you don't like blueberries?"
+        document.getElementById('muffin-question').textContent = "Are you sure?"
         noCount++;
     } else if (noCount === 1){
         lockChoices();
